@@ -13,7 +13,7 @@ class QuanTriVien extends Authenticatable /*implements JWTSubject*/
     use Notifiable;
     protected $table='quan_tri_vien';
      protected $fillable = [
-        'ten_dang_nhap', 'mat_khau',
+        'ten_dang_nhap', 'mat_khau','ho_ten',
     ];
     /*public function getJWTIdentifier()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\LinhVuc;
+use DB;
 class LinhVucController extends Controller
 {
     public function loadLinhVuc()
@@ -17,14 +18,17 @@ class LinhVucController extends Controller
     }
     public function themLinhVuc(Request $request)
     {
+        $ktlv=DB::table('linh_vuc')->where('ten_linh_vuc','=',$request->ten_linh_vuc)->first();
         if($request->ten_linh_vuc=="")
                 return redirect()->back()->with('thongbao','Tên lĩnh vực bị bỏ trống !');
+        else if($ktlv!="")
+                return redirect()->back()->with('thongbao','Tên lĩnh vực đã tồn tại !');
         else
         {
     	$linhVuc=new LinhVuc();
         $linhVuc->ten_linh_vuc=$request->ten_linh_vuc;
         $linhVuc->save();
-        return redirect()->action('LinhVucController@loadLinhVuc');
+        return redirect()->route('trang-chu.home')->with('success','Thêm lĩnh vực thành công');
         }
     }
     public function suaLinhVuc($id)
@@ -44,7 +48,7 @@ class LinhVucController extends Controller
             if ($kq) {
                 return redirect()
                         ->route('trang-chu.home')
-                        ->with('msg',"Cập nhật lĩnh vực thành công");
+                        ->with('success',"Cập nhật lĩnh vực thành công");
              }
             return back()
                     ->withErrors('Cập nhật lĩnh vực thất bại')

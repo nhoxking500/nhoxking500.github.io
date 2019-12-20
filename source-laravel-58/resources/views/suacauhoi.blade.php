@@ -25,8 +25,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mb-3 header-title">Thêm câu hỏi lĩnh vực:  {{$dsLinhVuc->ten_linh_vuc}}</h4>
-
-                                <form method="POST" action="{{route('trang-chu.update-cau-hoi')}}">
+                                @if(session('thongbaosuccess'))
+                                <div class="alert alert-success">{{session('thongbaosuccess')}}</div>
+                                @endif
+                                <form method="post" action="{{route('trang-chu.update-cau-hoi')}}">
                                     {!! csrf_field() !!}
                                     <div class="form-group">
                                         

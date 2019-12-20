@@ -19,6 +19,10 @@ class DangKyController extends Controller
     {
        return view('pages-register'); 
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function DangKy(Request $request)
     {
         $rules = [

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('main')
-            @foreach($dsLinhVuc as $linhVuc)
+            
         <div class="wrapper">
             <div class="container-fluid">
 
@@ -13,28 +13,58 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Upvex</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                                    <li class="breadcrumb-item active">{{$linhVuc->ten_linh_vuc}}</li>
+                                    <li class="breadcrumb-item active">
+                                        @if(isset($titleLinhVuc))
+                                    {{$titleLinhVuc['ten_linh_vuc']}}
+                                        @endif
+                                    </li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">{{$linhVuc->ten_linh_vuc}}</h4>
+                            <h4 class="page-title">
+                                        @if(isset($titleLinhVuc))
+                                    {{$titleLinhVuc['ten_linh_vuc']}}
+                                        @endif
+                            </h4>
                         </div>
                     </div>
                 </div>     
                 <!-- end page title --> 
-
+                                         <div class="container">
+                                        <span class="choose"></span>
+                                      
+                                          <div class="dropdownn">
+                                            <div class="select">
+                                              <span>Chọn lĩnh vực</span>
+                                              <i class="fa fa-chevron-left"></i>
+                                            </div>
+                                            <input type="hidden" name="gender">
+                                            <ul class="dropdown-menuu">
+                                                @foreach($dsLinhVuc as $linhVuc)
+                                              <a href="{{route('trang-chu.chon-linh-vuc',$linhVuc->id)}}" style="color: black"><li>{{$linhVuc->ten_linh_vuc}}</li></a>
+                                                @endforeach
+                                            </ul>
+                                          </div>
+                                      
+                                      <span class="msg"></span>
+                                    </div>
                 
                  <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">{{$linhVuc->ten_linh_vuc}}</h4>
+                                <h4 class="header-title"></h4>
                                 <p class="text-muted font-13 mb-4">
-                                    DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
-                                    function:
-                                    <code>$().DataTable();</code>.
+                                    
+                                    <code></code>
                                 </p>
-
+                                @if(session('thongbaosuccess'))
+                                <div class="alert alert-success">{{session('thongbaosuccess')}}</div>
+                                @endif
+                                @if(session('thongbaoloi'))
+                                <div class="alert alert-danger">{{session('thongbaoloi')}}</div>
+                                @endif
                                 <table id="basic-datatable" class="table dt-responsive nowrap" id="table-cauhoi">
+                                    @if(isset($dsCauHoi))
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -52,7 +82,6 @@
                                 
                                     <tbody>
                                         @foreach($dsCauHoi as $cauHoi)
-                                        @if($linhVuc->id==$cauHoi->linh_vuc_id)
                                         <tr>
                                             <td>{{$cauHoi->id}}</td>
                                             <td>{{$cauHoi->noi_dung}}</td>
@@ -67,11 +96,11 @@
                                                 <a href="" type="button" class="btn btn-danger waves-effect waves-light xoa-cau-hoi" id="{{$cauHoi->id}}"><i class=" mdi mdi-trash-can-outline"></i></a>
                                             </td>
                                         </tr>
-                                        
-                                        @endif
                                         @endforeach
                                     </tbody>
+                                    @endif
                                 </table>
+                                @if(isset($dsCauHoi))
                                 <div class="row">
                                     <div class="col-3"></div>
                                     <div class="col-3"></div>
@@ -79,10 +108,11 @@
                                     <div class="col-3">
                                         <div class="card-box" style="text-align: right">
                                             <h4 class="header-title">Thêm câu hỏi</h4>
-                                                <a href="{{route('trang-chu.them-cau-hoi',$linhVuc->id)}}" type="button"class="btn btn-success">Thêm</a>
+                                                <a href="{{route('trang-chu.them-cau-hoi',$titleLinhVuc['id'])}}" type="button"class="btn btn-success">Thêm</a>
                                             </div> <!-- end card-box-->
                                         </div> <!-- end col-->
                                     </div>
+                                @endif
 
                             </div> <!-- end card body-->
                         </div> <!-- end card -->
@@ -90,7 +120,7 @@
                 </div>
         </div>
     </div>
-    @endforeach
+    
         <!-- end wrapper -->
 
         <!-- ============================================================== -->

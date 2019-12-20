@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\LinhVuc;
 use App\CauHoi;
+use DB;
 class CauHoiController extends Controller
 {
     /**
@@ -15,8 +16,18 @@ class CauHoiController extends Controller
     public function index()
     {
         $dsLinhVuc=LinhVuc::all();
-        $dsCauHoi=CauHoi::all();
-        return view('cauhoi', compact('dsCauHoi','dsLinhVuc'));
+        return view('cauhoi', compact('dsLinhVuc'));
+    }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function chonLinhVuc($id)
+    {
+        $dsLinhVuc=LinhVuc::all();
+        $titleLinhVuc=LinhVuc::find($id)->toArray();
+        $dsCauHoi=CauHoi::where('linh_vuc_id','=',$id)->get();
+        return view('cauhoi',compact('dsCauHoi','dsLinhVuc','titleLinhVuc'));
     }
 
     /**
@@ -44,38 +55,9 @@ class CauHoiController extends Controller
         return redirect()->action('CauHoiController@create');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request)
     {
-        try {
         $CauHoi =CauHoi::findOrFail($request->id);
         $CauHoi->noi_dung= $request->noi_dung;
         $CauHoi->linh_vuc_id=$request->linh_vuc_id;
@@ -84,33 +66,36 @@ class CauHoiController extends Controller
         $CauHoi->phuong_an_c=$request->phuong_an_c;
         $CauHoi->phuong_an_d=$request->phuong_an_d;
         $CauHoi->dap_an=$request->dap_an;
-       $kq= $CauHoi->save();
-
-            if ($kq) {
-                return redirect()
-                        ->route('trang-chu.ql-cau-hoi')
-                        ->with('msg', 'Cập nhật câu hỏi thành công');
-            }
-            return back()
-                    ->withErrors('Cập nhật câu hỏi thất bại')
-                    ->withInput();
-        } catch (Exception $e) {
-            return back()
-                    ->withErrors('Có lỗi xảy ra, mời thử lại sau')
-                    ->withInput();
+        $CauHoi->save();
+        return redirect()->route('trang-chu.chon-linh-vuc',$request->linh_vuc_id)->with('thongbaosuccess','Sửa câu hỏi thành công !');
+    }
+    public function ThemCauHoiTheoLV(Request $request)
+    {
+        $kiem_tra_tt=DB::table('cau_hoi')->where('noi_dung','=',$request->noi_dung)->first();
+        if($kiem_tra_tt!="")
+        {
+            return redirect()->back()->with('thongbaoloi','Câu hỏi đã tồn tại');
+        }
+        else if($request->noi_dung==""||$request->phuong_an_a==""||$request->phuong_an_b==""||$request->phuong_an_c==""||$request->phuong_an_d==""||$request->dap_an=="")
+        {
+            return redirect()->back()->with('thongbaoloi','Không được để trống');
+        }
+        else
+        {
+            $CauHoi =new CauHoi();
+            $CauHoi->noi_dung= $request->noi_dung;
+            $CauHoi->linh_vuc_id=$request->linh_vuc_id;
+            $CauHoi->phuong_an_a=$request->phuong_an_a;
+            $CauHoi->phuong_an_b=$request->phuong_an_b;
+            $CauHoi->phuong_an_c=$request->phuong_an_c;
+            $CauHoi->phuong_an_d=$request->phuong_an_d;
+            $CauHoi->dap_an=$request->dap_an;
+            $CauHoi->save();
+            return redirect()->back()->with('thongbaosuccess','Thêm câu hỏi thành công');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+ 
     public function getCauHoi()
     {
         

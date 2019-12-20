@@ -26,7 +26,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mb-3 header-title"></h4>
-
+                                @if(session('thongbaoloi'))
+                                <div class="alert alert-danger">{{session('thongbaoloi')}}</div>
+                                @endif
+                                @if(session('thongbaosuccess'))
+                                <div class="alert alert-success">{{session('thongbaosuccess')}}</div>
+                                @endif
                                 <form method="POST" action="{{route('update.them-nguoi-choi')}}">
                                     {!! csrf_field() !!}
                                     <div class="form-group">
@@ -35,29 +40,30 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Tên đăng nhập</label>
-                                        <input type="text" class="form-control" name="ten_dang_nhap">
+                                        <input type="text" class="form-control" name="ten_dang_nhap" required="">
                                         
                                     </div>
                                     
                                     <div class="form-group">
                                         <label >Mật khẩu</label>
-                                        <input type="text" class="form-control" name="mat_khau">
+                                        <input type="text" class="form-control" name="mat_khau" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Email</label>
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="text" class="form-control" name="email" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Điểm cao nhất</label>
-                                        <input type="text" class="form-control" name="diem_cao_nhat">
+                                        <input type="text" class="form-control" name="diem_cao_nhat" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Credit</label>
-                                        <input type="text" class="form-control" name="credit">
+                                        <input type="text" class="form-control" name="credit" required="">
                                     </div>
                     
                                     
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Thêm người chơi</button>
+                                    <a href="{{route('trang-chu.ql-nguoi-choi')}}" class="btn btn-primary waves-effect waves-light">Quản lý người chơi</a>
                                 </form>
 
                             </div> <!-- end card-body-->

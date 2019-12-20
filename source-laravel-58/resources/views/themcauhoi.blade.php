@@ -25,39 +25,49 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mb-3 header-title">Thêm câu hỏi lĩnh vực:  {{$dsLinhVuc->ten_linh_vuc}}</h4>
-
-                                <form method="POST" action="{{route('trang-chu.update-cau-hoi')}}">
+                                 @if(session('thongbaoloi'))
+                               <div class="alert alert-danger">
+                                {{session('thongbaoloi')}}
+                                @endif
+                               </div>
+                               @if(session('thongbaosuccess'))
+                               <div class="alert alert-success">
+                                {{session('thongbaosuccess')}}
+                               </div>
+                               @endif
+                                <form method="POST" action="{{route('trang-chu.them-cau-hoi-lv')}}">
                                     {!! csrf_field() !!}
                                     <div class="form-group">
                                         <label>Nội dung</label>
-                                        <input type="text" class="form-control" name="noi_dung">
+                                        <input type="text" class="form-control" name="noi_dung" required="">
                                         
                                     </div>
                                     <div class="form-group">
                                         
-                                        <input type="hidden" class="form-control" name="linh_vuc_id" value="{{$dsLinhVuc->id}}">
+                                        <input type="hidden" class="form-control" name="linh_vuc_id" value="{{$dsLinhVuc->id}}" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Phương án A</label>
-                                        <input type="text" class="form-control" name="phuong_an_a">
+                                        <input type="text" class="form-control" name="phuong_an_a" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Phương án B</label>
-                                        <input type="text" class="form-control" name="phuong_an_b">
+                                        <input type="text" class="form-control" name="phuong_an_b" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Phương án C</label>
-                                        <input type="text" class="form-control" name="phuong_an_c">
+                                        <input type="text" class="form-control" name="phuong_an_c" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Phương án D</label>
-                                        <input type="text" class="form-control" name="phuong_an_d">
+                                        <input type="text" class="form-control" name="phuong_an_d" required="">
                                     </div>
                                     <div class="form-group">
                                         <label >Đáp án</label>
-                                        <input type="text" class="form-control" name="dap_an">
+                                        <input type="text" class="form-control" name="dap_an" required="">
                                     </div>
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Thêm câu hỏi</button>
+                                    <a href="{{route('trang-chu.chon-linh-vuc',$dsLinhVuc->id)}}" class="btn btn-primary waves-effect waves-light">Quản lý câu hỏi</a>
                                 </form>
 
                             </div> <!-- end card-body-->

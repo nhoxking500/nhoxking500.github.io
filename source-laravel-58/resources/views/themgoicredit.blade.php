@@ -51,6 +51,7 @@
                     
                                     
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Thêm gói credit</button>
+                                    <a href="{{route('trang-chu.goi-credit')}}" class="btn btn-primary waves-effect waves-light">Quản lý gói credit</a>
                                 </form>
 
                             </div> <!-- end card-body-->

@@ -11,6 +11,10 @@ class GoiCreditController extends Controller
     	$dsGoiCredit=GoiCredit::all();
     	return view('goicredit',compact('dsGoiCredit'));
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function updateThem(Request $request)
     {
     	try {

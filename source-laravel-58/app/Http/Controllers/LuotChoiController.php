@@ -15,4 +15,8 @@ class LuotChoiController extends Controller
             ->get();
     	return view('luotchoi',compact('dsLuotChoi'));
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

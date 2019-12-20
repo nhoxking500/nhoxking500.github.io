@@ -12,10 +12,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Upvex</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                                    <li class="breadcrumb-item active">Basic Tables</li>
+                                    <li class="breadcrumb-item active">Sửa lĩnh vực</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Basic Tables</h4>
+                            <h4 class="page-title">Sửa lĩnh vực</h4>
                         </div>
                     </div>
                 </div>     
@@ -24,9 +24,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="card-box">
-                            <h4 class="header-title">Basic example</h4>
+                            <h4 class="header-title"></h4>
                             <p class="sub-header">
-                                For basic styling—light padding and only horizontal dividers—add the base class <code>.table</code> to any <code>&lt;table&gt;</code>.
                             </p>
 
                             <div class="table-responsive">
@@ -60,18 +59,10 @@
                     <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h4 class="header-title">Thêm mới lĩnh vực</h4>
+                            <h4 class="header-title">Sửa lĩnh vực</h4>
 
-                            <div class="alert alert-warning d-none fade show">
-                                <h4 class="mt-0">Oh snap!</h4>
-                                <p class="mb-0">This form seems to be invalid :(</p>
-                            </div>
-
-                            <div class="alert alert-info d-none fade show">
-                                <h4 class="mt-0">Yay!</h4>
-                                <p class="mb-0">Everything seems to be ok :)</p>
-                            </div>
-
+                           
+                              
                             <form action="{{ route('trang-chu.update')}}" method="POST">
                                 {!! csrf_field() !!}
                                 <div class="form-group">

@@ -12,9 +12,9 @@
 
         <!-- plugin css -->
         <link href="{{ asset('assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet" type="text/css" />
-
         <!-- App css -->
         <link href="{{ asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- Sweet Alert-->
@@ -162,14 +162,6 @@
                             
                         </li>
 
-                        <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                
-                                <span class="pro-user-name ml-1">
-                                   Register 
-                                </span>
-                            </a>
-                        </li>
                         @else
                         <li class="dropdown notification-list">
                             
@@ -382,7 +374,7 @@
                                     <a href="{{route('luot-choi.index')}}">Lượt chơi</a>
                                 </li>
                                  <li>
-                                    <a href="">Chi tiết lượt chơi</a>
+                                    <a href="{{route('chi-tiet-luot-choi.index')}}">Chi tiết lượt chơi</a>
                                 </li>
                                 </ul>
                                 
@@ -392,8 +384,31 @@
                                     <i class="fab fa-cc-amazon-pay"></i>Gói Credit <div class="arrow-down"></div></a>
                                 
                             </li>
+                            <li class="has-submenu">
+                                <a href="{{route('thung-rac')}}">
+                                    <i class="mdi mdi-trash-can-outline"></i>Thùng rác <div class="arrow-down"></div></a>
+                                    <ul class="submenu">
+                                    <li>
+                                        <a href="{{route('thung-rac-lv')}}">Lĩnh vực</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('thung-rac-ch')}}">Câu hỏi</a>
+                                    </li>
+                                     <li>
+                                        <a href="{{route('thung-rac-nc')}}">Người chơi</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('thung-rac-gc')}}">Gói Credit</a>
+                                    </li>
+                                    </ul>
 
-
+                                
+                            </li>
+                            <li class="has-submenu">
+                                <a href="{{route('quan-tri-vien.index')}}">
+                                    <i class="fas fa-user"></i>Quản trị viên <div class="arrow-down"></div></a>
+                                
+                            </li>
 
 
 
@@ -547,6 +562,30 @@
         <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
         <script src="{{ asset('http://code.jquery.com/jquery-1.12.0.min.js')}}"></script>
         <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js') }}"></script>
+        <script type="text/javascript">
+            /*Dropdown Menu*/
+                    $('.dropdownn').click(function () {
+                            $(this).attr('tabindex', 1).focus();
+                            $(this).toggleClass('active');
+                            $(this).find('.dropdown-menuu').slideToggle(300);
+                        });
+                        $('.dropdownn').focusout(function () {
+                            $(this).removeClass('active');
+                            $(this).find('.dropdown-menuu').slideUp(300);
+                        });
+                        $('.dropdownn .dropdown-menuu li').click(function () {
+                            $(this).parents('.dropdownn').find('span').text($(this).text());
+                            $(this).parents('.dropdownn').find('input').attr('value', $(this).attr('id'));
+                        });
+                    /*End Dropdown Menu*/
+
+
+                    $('.dropdownn-menuu li').click(function () {
+                      var input = '<strong>' + $(this).parents('.dropdownn').find('input').val() + '</strong>',
+                          msg = '<span class="msg">Hidden input value: ';
+                      $('.msg').html(msg + input + '</span>');
+                    }); 
+        </script>
         <script type="text/javascript">
             !function(t){
                 "use strict";

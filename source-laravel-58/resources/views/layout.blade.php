@@ -73,6 +73,16 @@
                                 {{session('thongbao')}}
                                </div>
                                @endif
+                               @if(session('success'))
+                               <div class="alert alert-success">
+                                {{session('success')}}
+                               </div>
+                               @endif
+                                @if(Session::has('error'))
+                               <div class="alert alert-danger">
+                                {{Session::get('error')}}
+                               </div>
+                               @endif
                             <form action="{{route('trang-chu.them-linh-vuc')}}" method="POST">
                                 {!! csrf_field() !!}
                                 <div class="form-group">
@@ -137,8 +147,8 @@
                 e.preventDefault();
                 var id=$(this).attr('id');
                  Swal.fire({
-                            title:"Are you sure?",
-                            text:"You won't be able to revert this!",
+                            title:"Bạn có muốn xóa ?",
+                            text:"Những lĩnh vực bị xóa sẽ đưa vào thùng rác",
                             type:"warning",
 
                             showCancelButton:!0,
@@ -154,7 +164,7 @@
                                     success:function(data)
                                     {
 
-                                        Swal.fire("Deleted!","Your file has been deleted.","success");
+                                        Swal.fire("Đã xóa","Xóa lĩnh vực thành công!","success");
                                         $('#div-table').load("{{route('trang-chu.home')}} #table-linhvuc");
                                         
                                     }
